@@ -7,7 +7,7 @@ module SkProgressBar
     class ModelsGenerator < ActiveRecord::Generators::Base
       extend Base
 
-      argument :name, :type => :string, :default => 'sk_progress_bar'
+      argument :name, :type => :string, :default => 'progress_bar'
       # Create model file
       def generate_files
         copy_file 'progress_bar.rb', "app/models/#{name}.rb"

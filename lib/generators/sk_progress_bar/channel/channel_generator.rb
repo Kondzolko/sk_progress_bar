@@ -10,7 +10,7 @@ module SkProgressBar
       argument :name, :type => :string, :default => 'sk_progress_bar'
       # Add action cable in project's folder
       def generate_files
-        copy_file 'sk_progress_bar_channel.rb', "app/channels/#{name}.rb"
+        copy_file 'sk_progress_bar_channel.rb', "app/channels/#{name}_channel.rb"
         copy_file 'sk_progress_bar.coffee', "app/assets/javascripts/channels/#{name}.coffee"
       end
     end
