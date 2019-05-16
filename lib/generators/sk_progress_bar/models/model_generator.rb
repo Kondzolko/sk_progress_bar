@@ -4,7 +4,7 @@ require 'rails/generators/active_record'
 module SkProgressBar
   module Generators
     # Sidekiq Progress Bar generator that creates model file from template
-    class ModelGenerator < ActiveRecord::Generators::Base
+    class ModelsGenerator < ActiveRecord::Generators::Base
       extend Base
 
       argument :name, :type => :string, :default => 'sk_progress_bar'
