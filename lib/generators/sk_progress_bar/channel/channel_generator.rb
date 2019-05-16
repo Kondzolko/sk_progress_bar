@@ -4,7 +4,7 @@ require 'rails/generators/active_record'
 module SkProgressBar
   module Generators
     # Sidekiq Progress Bar generator that creates action_cable files from template
-    class SkProgressBarGenerator < ActiveRecord::Generators::Base
+    class ChannelGenerator < ActiveRecord::Generators::Base
       extend Base
 
       argument :name, :type => :string, :default => 'sk_progress_bar'

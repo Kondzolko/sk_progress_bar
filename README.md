@@ -26,6 +26,12 @@ Or install it yourself as:
     rails g sk_progress_bar:migration
     rake db:migrate
 
+## Setup action cable
+    rails g sk_progress_bar:channel
+    
+## Routes
+    mount ActionCable.server, at: '/cable'
+
 ## Usage
 
 TODO: Write usage instructions here
