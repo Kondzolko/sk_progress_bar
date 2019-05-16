@@ -19,6 +19,12 @@ And then execute:
 Or install it yourself as:
 
     $ gem install sk_progress_bar
+    
+## Database setup
+(ActiveRecord only) Create migration for Sidekiq Progress Bar and migrate the database (in your Rails project):
+
+    rails g sk_progress_bar:migration
+    rake db:migrate
 
 ## Usage
 
