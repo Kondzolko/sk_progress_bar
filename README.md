@@ -1,4 +1,5 @@
 # SkProgressBar
+<iframe width="560" height="315" src="https://www.youtube.com/embed/B4xov2rMtAA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Installation
 
@@ -21,6 +22,9 @@ Or install it yourself as:
 
     rails g sk_progress_bar:migration
     rake db:migrate
+
+## Add ProgressBar model
+    rails g sk_progress_bar:models
 
 ## Setup action cable
     rails g sk_progress_bar:channel
