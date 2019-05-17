@@ -10,6 +10,10 @@ App.sk_progress_bar = App.cable.subscriptions.create "SkProgressBarChannel",
     progress_status = data.progress_status
     # jid - Sidekiq Job Id
     # $('.progress-bar') can be replaced to jid or any other business logic
+
     # Example: $("##{data.sk_process_id[:jid]}").attr('aria-valuenow', progress_status).css 'width', progress_status + '%'
     $(".progress-bar").attr('aria-valuenow', progress_status).css 'width', progress_status + '%'
+
+    # For add percentage inside in progress bar
+    $(".progress-bar").text(progress_status + '%')
     # Called when there's incoming data on the websocket for this channel
