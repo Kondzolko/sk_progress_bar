@@ -7,7 +7,7 @@ class CreateSkProgressBar < (ActiveRecord.version.release() < Gem::Version.new('
     create_table :progress_bars do |t|
       t.string :message
       t.string :sk_process_id
-      t.integer :process_status
+      t.integer :percentage
 
       t.timestamps
     end
@@ -15,6 +15,6 @@ class CreateSkProgressBar < (ActiveRecord.version.release() < Gem::Version.new('
   end
   # Drop table
   def self.down
-    drop_table :sk_progress_bar
+    drop_table :progress_bars
   end
 end

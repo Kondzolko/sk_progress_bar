@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["kondzolko@gmail.com"]
 
   spec.summary       = %q{Progress bar for Sidekiq Workers}
-  spec.description   = %q{Gem 'Sidekiq-progress-bar' will help show you the current stage in the work of your Sidekiq workers in the form of a progress bar!}
-  spec.homepage      = "https://github.com/"
+  spec.description   = %q{Gem 'Sidekiq-progress-bar' will help to show the current stage in the work of a Sidekiq worker in the form of a progress bar!}
+  spec.homepage      = "https://github.com/Kondzolko/sk_progress_bar"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "Set to 'http://mygemserver.com'"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "https://github.com/"
-    spec.metadata["changelog_uri"] = "https://github.com/"
+    spec.metadata["source_code_uri"] = "https://github.com/Kondzolko/sk_progress_bar"
+    spec.metadata["changelog_uri"] = "https://github.com/Kondzolko/sk_progress_bar"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
