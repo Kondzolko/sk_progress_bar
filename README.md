@@ -63,8 +63,13 @@ Or install it yourself as:
     .progress
       .progress-bar.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "2", "aria-valuenow" => "10", :role => "progressbar", :style => "width: 2%"}
 
+## Coffee Script (Active Cable)
+    All changes about javascript, coffee script, you can implement in this file!
+    "app/assets/javascripts/channels/sk_progress_bar.coffee"
+    
+    All data in HTML page updating from  this coffee file, please check this file if you want to add new js functionality!
 
-## Example Worker Code
+## Example Code for "SidekiqWorker"
     /app/workers/progress_bar_worker.rb
     
     
