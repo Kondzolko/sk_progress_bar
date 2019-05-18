@@ -100,6 +100,12 @@ Or install it yourself as:
     or
     ProgressBarWorker.new.perform
     
+    # Important (Only for ".new.perform")
+        When you are using the method ".new.perform" in SidekiqWorker and you need to use 
+        "SkProgressBar.create_update_db" method to save results in DB, please add a unique 
+        "jid" variable in order to avoid duplicated records in the DB.
+        
+        "Example: SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)"
 
 ## Development
 

@@ -24,8 +24,6 @@ module SkProgressBar
 
   # Add/Update record in ProgressBar table
   def self.create_update_db(percentage, message, jid=nil)
-    return unless !!defined?(ProgressBar)
-
     db_record = jid.present? ? ProgressBar.find_by(sk_process_id: jid) : nil
     if db_record.present?
       db_record.update( message: message, sk_process_id: jid, percentage: percentage )
