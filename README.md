@@ -1,6 +1,5 @@
 # SkProgressBar
-<iframe width="560" height="315" src="https://www.youtube.com/embed/B4xov2rMtAA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+[![Watch the video](http://i3.ytimg.com/vi/B4xov2rMtAA/maxresdefault.jpg)](https://www.youtube.com/embed/B4xov2rMtAA)
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -17,24 +16,88 @@ Or install it yourself as:
 
     $ gem install sk_progress_bar
     
-## Database setup
+## Database setup (if needed)
 (ActiveRecord only) Create migration for Sidekiq Progress Bar and migrate the database (in your Rails project):
 
     rails g sk_progress_bar:migration
     rake db:migrate
 
-## Add ProgressBar model
+## Add ProgressBar model (if needed)
     rails g sk_progress_bar:models
 
-## Setup action cable
+## Setup action cable (Required)
     rails g sk_progress_bar:channel
     
-## Routes
+## Routes (Required)
     mount ActionCable.server, at: '/cable'
-
+    
+## Required gems
+    gem 'sidekiq'
+    
+    gem 'bootstrap' 
+    # "Boostrap" need if you will use progress bar from "bootstrap"
 ## Usage
+    require 'sk_progress_bar'
+    
+    index = 0
+    objects = 10
+    
+    progress = SkProgressBar.progress_status(index, objects)
+    # progress => {:percentage=>10, :message=>"Almost done"}
+    # Calculate and return how many percent of the work done on the total amount of work
+    
+    SkProgressBar.update_progress_bar(10, Almost done, 46b26c4df9a6c0e2603552bf)
+    # Update Html Progress Bar
+    
+    SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)
+    # Create/Update Record in DB
+    
+## Example Html Code with Bootstrap
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 2%" aria-valuenow="10" aria-valuemin="2" aria-valuemax="100"></div>
+    </div>
 
-TODO: Write usage instructions here
+## Example Haml Code with Bootstrap
+    .progress
+      .progress-bar.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "2", "aria-valuenow" => "10", :role => "progressbar", :style => "width: 2%"}
+
+
+## Example Worker Code
+    /app/workers/progress_bar_worker.rb
+    
+    
+    class ProgressBarWorker
+      include Sidekiq::Worker
+      require 'sk_progress_bar'
+    
+      def perform
+        objects = [*1..10]
+        # objects => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        start_cycle(objects)
+      end
+    
+      def start_cycle(objects)
+        objects.each_with_index do |object, index|
+          sleep(0.5)
+    
+          progress = SkProgressBar.progress_status(index, objects.count)
+          # progress => {:percentage=>10, :message=>"Almost done"}
+          # jid => Sidekiq Process ID (46b26c4df9a6c0e2603552bf)
+    
+          SkProgressBar.update_progress_bar(progress[:percentage], progress[:message], jid)
+          # Update Html Progress Bar
+          
+          SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)
+          # Create/Update Record in DB
+        end
+      end
+    end
+
+## Rails console
+    ProgressBarWorker.perform_async
+    or
+    ProgressBarWorker.new.perform
+    
 
 ## Development
 
@@ -44,7 +107,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sk_progress_bar. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Kondzolko/sk_progress_bar. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -53,3 +116,6 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the SkProgressBar project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/sk_progress_bar/blob/master/CODE_OF_CONDUCT.md).
+
+## Author
+    Andriy Kondzolko
