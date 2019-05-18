@@ -1,4 +1,4 @@
-# SkProgressBar
+# SkProgressBar (Progress Bar For Sidekiq worker)
 [![Watch the video](http://i3.ytimg.com/vi/B4xov2rMtAA/maxresdefault.jpg)](https://www.youtube.com/embed/B4xov2rMtAA)
 ## Installation
 
