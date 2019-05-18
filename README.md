@@ -34,10 +34,11 @@ Or install it yourself as:
     mount ActionCable.server, at: '/cable'
     
 ## Required gems
+    gem 'jquery-rails'
     gem 'sidekiq'
-    
     gem 'bootstrap' 
     # "Boostrap" need if you will use progress bar from "bootstrap"
+    
 ## Usage
     require 'sk_progress_bar'
     
@@ -111,6 +112,20 @@ Or install it yourself as:
         "jid" variable in order to avoid duplicated records in the DB.
         
         "Example: SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)"
+
+## Possible Issues and Solution
+A possible solution for your problem will be to change the settings in 'config/cable.yml' to these
+    
+    redis: &redis
+          adapter: redis
+          url: redis://localhost:6379/1
+    production: *redis
+    development: *redis
+    test: *redis
+    
+If your progress bar doesn't update, make sure that you added this code in 'app/assets/javascripts/application.js'
+    
+    //= require jquery
 
 ## Development
 
