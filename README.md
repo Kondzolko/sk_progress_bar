@@ -1,7 +1,9 @@
 # SkProgressBar (Progress Bar For Sidekiq worker)
 [![Watch the video](http://i3.ytimg.com/vi/B4xov2rMtAA/maxresdefault.jpg)](https://www.youtube.com/embed/B4xov2rMtAA)
-## Installation
+## Rails version
+    from rails 5.0 up to 6.0
 
+## Installation
 Add this line to your application's Gemfile:
 
 ```ruby
