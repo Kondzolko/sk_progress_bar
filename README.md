@@ -36,7 +36,7 @@ Or install it yourself as:
 ## Required gems
     gem 'jquery-rails'
     gem 'sidekiq'
-    gem 'bootstrap' 
+    gem 'bootstrap', '~> 4.3.1'
     # "Boostrap" need if you will use progress bar from "bootstrap"
     
 ## Usage
@@ -114,6 +114,8 @@ Or install it yourself as:
         "Example: SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)"
 
 ## Possible Issues and Solution
+If you Action Cable doesn't work.
+
 A possible solution for your problem will be to change the settings in 'config/cable.yml' to these
     
     redis: &redis
@@ -123,7 +125,7 @@ A possible solution for your problem will be to change the settings in 'config/c
     development: *redis
     test: *redis
     
-If your progress bar doesn't update, make sure that you added this code in 'app/assets/javascripts/application.js'
+If your progress bar not updating data, make sure that you added this code in 'app/assets/javascripts/application.js'
     
     //= require jquery
 
