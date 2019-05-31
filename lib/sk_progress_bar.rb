@@ -10,9 +10,9 @@ module SkProgressBar
   # Update Progress Bar
   def self.update_progress_bar(percentage, message, jid=nil)
     ActionCable.server.broadcast 'sk_progress_bar_channel',
+                                 progress_status: percentage,
                                  message:  message,
-                                 sk_process_id: jid,
-                                 progress_status: percentage
+                                 sk_process_id: jid
   end
 
   # Return Percentage and Message result of cycle

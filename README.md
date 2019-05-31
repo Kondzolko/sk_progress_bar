@@ -34,7 +34,6 @@ Or install it yourself as:
     mount ActionCable.server, at: '/cable'
     
 ## Required gems
-    gem 'jquery-rails'
     gem 'sidekiq'
     gem 'bootstrap', '~> 4.3.1'
     # "Boostrap" need if you will use progress bar from "bootstrap"
@@ -55,14 +54,20 @@ Or install it yourself as:
     SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)
     # Create/Update Record in DB
     
+## Example Html Code
+    <progress id="sk_progress_bar" value="22" max="2"></progress> 
+    
 ## Example Html Code with Bootstrap
     <div class="progress">
-      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 2%" aria-valuenow="10" aria-valuemin="2" aria-valuemax="100"></div>
+      <div class="progress-bar progress-bar-striped" id="sk_progress_bar" role="progressbar" style="width: 2%" aria-valuenow="10" aria-valuemin="2" aria-valuemax="100"></div>
     </div>
 
 ## Example Haml Code with Bootstrap
     .progress
       .progress-bar.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "2", "aria-valuenow" => "10", :role => "progressbar", :style => "width: 2%"}
+
+## Example for Update Progress Bar
+    SkProgressBar.update_progress_bar('99', 'test message', 'sidekiq jid')
 
 ## Coffee Script (Active Cable)
     All changes about javascript, coffee script, you can implement in this file!
@@ -124,10 +129,6 @@ A possible solution for your problem will be to change the settings in 'config/c
     production: *redis
     development: *redis
     test: *redis
-    
-If your progress bar not updating data, make sure that you added this code in 'app/assets/javascripts/application.js'
-    
-    //= require jquery
 
 ## Development
 
