@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["andriy.kondzolko"]
   spec.email         = ["kondzolko@gmail.com"]
 
-  spec.summary       = %q{Progress bar for Sidekiq Workers}
+  spec.summary       = %q{Progress bar for Sidekiq Workers or any backend process}
   spec.description   = %q{Gem 'Sidekiq-progress-bar' will help to show the current stage in the work of a Sidekiq worker in the form of a progress bar!}
   spec.homepage      = "https://github.com/Kondzolko/sk_progress_bar"
   spec.license       = "MIT"
@@ -39,5 +39,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "sidekiq"
 end
