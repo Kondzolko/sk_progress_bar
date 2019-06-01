@@ -33,8 +33,9 @@ Or install it yourself as:
 ## Routes (Required)
     mount ActionCable.server, at: '/cable'
     
-## Required gems
+## Recommend gems
     gem 'sidekiq'
+    # "Sidekiq" need if you will use progress bar in "sidekiq"
     gem 'bootstrap', '~> 4.3.1'
     # "Boostrap" need if you will use progress bar from "bootstrap"
     
@@ -55,7 +56,7 @@ Or install it yourself as:
     # Create/Update Record in DB
     
 ## Example Html Code
-    <progress id="sk_progress_bar" value="22" max="2"></progress> 
+    <progress id="sk_progress_bar" value="2" max="100"></progress> 
     
 ## Example Html Code with Bootstrap
     <div class="progress">
@@ -129,6 +130,7 @@ A possible solution for your problem will be to change the settings in 'config/c
     production: *redis
     development: *redis
     test: *redis
+and add gem 'redis' to Gemfile
 
 ## Development
 
