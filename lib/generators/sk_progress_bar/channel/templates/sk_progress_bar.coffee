@@ -18,8 +18,8 @@ App.sk_progress_bar = App.cable.subscriptions.create "SkProgressBarChannel",
 #    $(".progress-bar").text(progress_status + '%')
     # Called when there's incoming data on the websocket for this channel
 
-    document.getElementById("sk_progress_bar").max = progress_status
+    document.getElementById("sk_progress_bar").value = progress_status
     # Update progress bar without jquery and bootstrap
 
-    document.getElementById("sk_progress_bar").style.width = progress_status + '%'
+#    document.getElementById("sk_progress_bar").style.width = progress_status + '%'
     # Update bootstrap progress bar without jquery
