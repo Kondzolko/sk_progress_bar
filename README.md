@@ -17,7 +17,7 @@ And then execute:
 Or install it yourself as:
 
     $ gem install sk_progress_bar
-    
+
 ## Database setup (if needed)
 (ActiveRecord only) Create migration for Sidekiq Progress Bar and migrate the database (in your Rails project):
 
@@ -29,107 +29,129 @@ Or install it yourself as:
 
 ## Setup action cable (Required)
     rails g sk_progress_bar:channel
-    
+
 ## Routes (Required)
-    mount ActionCable.server, at: '/cable'
-    
+```Ruby
+mount ActionCable.server, at: '/cable'
+```
+
 ## Recommend gems
-    gem 'sidekiq'
-    # "Sidekiq" need if you will use progress bar in "sidekiq"
-    gem 'bootstrap', '~> 4.3.1'
-    # "Boostrap" need if you will use progress bar from "bootstrap"
-    
+```Ruby
+gem 'sidekiq'
+# "Sidekiq" need if you will use progress bar in "sidekiq"
+gem 'bootstrap', '~> 4.3.1'
+# "Boostrap" need if you will use progress bar from "bootstrap"
+```
+
 ## Usage
-    require 'sk_progress_bar'
-    
-    index = 0
-    objects = 10
-    
-    progress = SkProgressBar.progress_status(index, objects)
-    # progress => {:percentage=>10, :message=>"Almost done"}
-    # Calculate and return how many percent of the work done on the total amount of work
-    
-    SkProgressBar.update_progress_bar(10, Almost done, 46b26c4df9a6c0e2603552bf)
-    # Update Html Progress Bar
-    
-    SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)
-    # Create/Update Record in DB
-    
+```Ruby
+require 'sk_progress_bar'
+
+index = 0
+objects = 10
+
+progress = SkProgressBar.progress_status(index, objects)
+# progress => {:percentage=>10, :message=>"Almost done"}
+# Calculate and return how many percent of the work done on the total amount of work
+
+SkProgressBar.update_progress_bar(10, Almost done, 46b26c4df9a6c0e2603552bf)
+# Update Html Progress Bar
+
+SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)
+# Create/Update Record in DB
+```
+
 ## Example Html Code
-    <progress id="sk_progress_bar" value="2" max="100"></progress> 
-    
+
+```html
+<progress id="sk_progress_bar" value="2" max="100"></progress>
+```
+
 ## Example Html Code with Bootstrap
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped" id="sk_progress_bar" role="progressbar" style="width: 2%" aria-valuenow="10" aria-valuemin="2" aria-valuemax="100"></div>
-    </div>
+
+```html
+<div class="progress">
+    <div class="progress-bar progress-bar-striped" id="sk_progress_bar" role="progressbar" style="width: 2%" aria-valuenow="10" aria-valuemin="2" aria-valuemax="100"></div>
+</div>
+```
 
 ## Example Haml Code with Bootstrap
-    .progress
-      .progress-bar.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "2", "aria-valuenow" => "10", :role => "progressbar", :style => "width: 2%"}
+
+```
+.progress
+    .progress-bar.progress-bar-striped{"aria-valuemax" => "100", "aria-valuemin" => "2", "aria-valuenow" => "10", :role => "progressbar", :style => "width: 2%"}
+```
 
 ## Example for Update Progress Bar
-    SkProgressBar.update_progress_bar('99', 'test message', 'sidekiq jid')
+
+```Ruby
+SkProgressBar.update_progress_bar('99', 'test message', 'sidekiq jid')
+```
 
 ## Coffee Script (Active Cable)
     All changes about javascript, coffee script, you can implement in this file!
     "app/assets/javascripts/channels/sk_progress_bar.coffee"
-    
+
     All data in HTML page updating from  this coffee file, please check this file if you want to add new js functionality!
 
 ## Example Code for "SidekiqWorker"
-    /app/workers/progress_bar_worker.rb
-    
-    
-    class ProgressBarWorker
-      include Sidekiq::Worker
-      require 'sk_progress_bar'
-    
-      def perform
-        objects = [*1..10]
-        # objects => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        start_cycle(objects)
-      end
-    
-      def start_cycle(objects)
-        objects.each_with_index do |object, index|
-          sleep(0.5)
-    
-          progress = SkProgressBar.progress_status(index, objects.count)
-          # progress => {:percentage=>10, :message=>"Almost done"}
-          # jid => Sidekiq Process ID (46b26c4df9a6c0e2603552bf)
-    
-          SkProgressBar.update_progress_bar(progress[:percentage], progress[:message], jid)
-          # Update Html Progress Bar
-          
-          SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)
-          # Create/Update Record in DB
-        end
-      end
+
+```Ruby
+# /app/workers/progress_bar_worker.rb
+class ProgressBarWorker
+    include Sidekiq::Worker
+    require 'sk_progress_bar'
+
+    def perform
+    objects = [*1..10]
+    # objects => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    start_cycle(objects)
     end
 
+    def start_cycle(objects)
+        objects.each_with_index do |object, index|
+            sleep(0.5)
+
+            progress = SkProgressBar.progress_status(index, objects.count)
+            # progress => {:percentage=>10, :message=>"Almost done"}
+            # jid => Sidekiq Process ID (46b26c4df9a6c0e2603552bf)
+
+            SkProgressBar.update_progress_bar(progress[:percentage], progress[:message], jid)
+            # Update Html Progress Bar
+
+            SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)
+            # Create/Update Record in DB
+        end
+    end
+end
+```
+
 ## Rails console
+```Ruby
     ProgressBarWorker.perform_async
-    or
+    # or
     ProgressBarWorker.new.perform
-    
+```
     # Important (Only for ".new.perform")
-        When you are using the method ".new.perform" in SidekiqWorker and you need to use 
-        "SkProgressBar.create_update_db" method to save results in DB, please add a unique 
+        When you are using the method ".new.perform" in SidekiqWorker and you need to use
+        "SkProgressBar.create_update_db" method to save results in DB, please add a unique
         "jid" variable in order to avoid duplicated records in the DB.
-        
+
         "Example: SkProgressBar.create_update_db(progress[:percentage], progress[:message], jid)"
 
 ## Possible Issues and Solution
 If you Action Cable doesn't work.
 
 A possible solution for your problem will be to change the settings in 'config/cable.yml' to these
-    
+
+```yaml
     redis: &redis
           adapter: redis
           url: redis://localhost:6379/1
     production: *redis
     development: *redis
     test: *redis
+```
 and add gem 'redis' to Gemfile
 
 ## Development
